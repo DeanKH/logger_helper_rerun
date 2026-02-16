@@ -104,13 +104,6 @@ constructColorsFromPointCloud(typename pcl::PointCloud<PointT>::Ptr &cloud) {
 } // namespace logger_helper_rerun::logger_3d
 
 namespace rerun {
-void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
-             const Eigen::Isometry3d &transform,
-             const std::string &parent_frame, const std::string &child_frame);
-
-void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
-             const std::string &entity, const Eigen::Isometry3d &transform,
-             const float axis_length = 0.1f);
 
 void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
              const std::string &entity,

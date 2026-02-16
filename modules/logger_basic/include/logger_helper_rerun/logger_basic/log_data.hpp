@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 #include <rerun.hpp>
 #include <string>
 
@@ -8,6 +10,14 @@ enum class LogLevel { Debug, Info, Warning, Error, Fatal };
 }
 
 namespace rerun {
+void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
+             const Eigen::Isometry3d &transform,
+             const std::string &parent_frame, const std::string &child_frame);
+
+void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
+             const std::string &entity, const Eigen::Isometry3d &transform,
+             const float axis_length = 0.1f);
+
 /**
  * Logs a message to the Rerun recording stream with a specified log level.
  * @param rec The Rerun recording stream to log the message to.
