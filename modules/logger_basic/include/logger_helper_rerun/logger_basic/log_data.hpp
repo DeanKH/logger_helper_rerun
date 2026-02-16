@@ -45,6 +45,27 @@ void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
 void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
              const std::string &entity_path, const std::vector<double> &values);
 
+template <class T>
+concept SizeConcept = requires(const T &size) {
+  size.width;
+  size.height;
+};
+
+template <SizeConcept T>
+void publishPinholeCameraData(
+    const std::shared_ptr<rerun::RecordingStream> &rec,
+    const std::string &entity, const float focal_length, const T &resolution) {
+  if (!rec) {
+    return;
+  }
+
+  rec->log(entity,
+           rerun::Pinhole::from_focal_length_and_resolution(
+               focal_length, {static_cast<float>(resolution.width),
+                              static_cast<float>(resolution.height)})
+               .with_camera_xyz(rerun::components::ViewCoordinates::RDF));
+}
+
 /**
  * Clears the log data associated with the specified entity path in the Rerun
  * recording stream. recording stream.
