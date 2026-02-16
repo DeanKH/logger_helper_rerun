@@ -21,6 +21,19 @@ rerun::components::TextLogLevel convertLogLevel(logger_basic::LogLevel level) {
 
 namespace rerun {
 void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
+             const Eigen::Affine3d &transform, const std::string &parent_frame,
+             const std::string &child_frame) {
+  if (!rec) {
+    return;
+  }
+
+  Eigen::Isometry3d iso;
+  iso.linear() = transform.linear();
+  iso.translation() = transform.translation();
+  logData(rec, iso, parent_frame, child_frame);
+}
+
+void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
              const Eigen::Isometry3d &transform,
              const std::string &parent_frame, const std::string &child_frame) {
   if (!rec) {

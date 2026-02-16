@@ -11,6 +11,10 @@ enum class LogLevel { Debug, Info, Warning, Error, Fatal };
 
 namespace rerun {
 void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
+             const Eigen::Affine3d &transform, const std::string &parent_frame,
+             const std::string &child_frame);
+
+void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
              const Eigen::Isometry3d &transform,
              const std::string &parent_frame, const std::string &child_frame);
 
