@@ -50,6 +50,11 @@ void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
   auto tf = rerun::Transform3D::from_translation_rotation(translation, rotation)
                 .with_parent_frame(parent_frame_full)
                 .with_child_frame(child_frame_full);
+
+  if (parent_frame == "world") {
+    rec->log_static("world", rerun::CoordinateFrame("world"));
+  }
+
   rec->log(child_frame, rerun::CoordinateFrame(parent_frame_full), tf);
 }
 
