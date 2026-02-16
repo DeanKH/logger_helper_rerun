@@ -111,6 +111,11 @@ void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
              const std::vector<std::array<uint8_t, 4>> &colors = {},
              const float radius = 0.01f);
 
+void logData(const std::shared_ptr<rerun::RecordingStream> &rec,
+             const std::string &entity,
+             pcl::PointCloud<pcl::PointXYZRGB>::Ptr &points,
+             const std::vector<pcl::Vertices> &polygons);
+
 template <class T>
 concept BB3dConcept = requires(const T &bb) {
   bb.center;
